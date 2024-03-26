@@ -1,25 +1,25 @@
 package com.kelvinykk511.bybitsdk;
 
-import com.kelvinykk511.bybitsdk.dto.req.RealtimeOrderReq;
-import okhttp3.Response;
+import com.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
+import com.kelvinykk511.bybitsdk.dto.resp.CommonResp;
+import com.kelvinykk511.bybitsdk.dto.resp.GetRealtimeOrderResp;
 import org.junit.Test;
 
 import java.io.IOException;
 
 public class BybitClientTest {
 
+    String apiKey = "1";
+    String secret = "1";
 
     @Test
     public void test() throws IOException {
-        String apiKey = "1";
-        String secret = "1";
 
         BybitClient bybitClient = new BybitClient(apiKey, secret, true);
-        RealtimeOrderReq req = RealtimeOrderReq.builder()
+        GetRealtimeOrderReq req = GetRealtimeOrderReq.builder()
                 .category("spot")
                 .build();
-        Response realtimeOrder = bybitClient.getRealtimeOrder(req);
-        System.out.println(realtimeOrder.code());
-        System.out.println(realtimeOrder.body().string());
+        CommonResp<GetRealtimeOrderResp> realtimeOrder = bybitClient.getRealtimeOrder(req);
+        System.out.println(realtimeOrder);
     }
 }
