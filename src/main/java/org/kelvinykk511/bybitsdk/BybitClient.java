@@ -1,14 +1,14 @@
-package com.kelvinykk511.bybitsdk;
+package org.kelvinykk511.bybitsdk;
 
+import org.kelvinykk511.bybitsdk.dto.resp.CommonResp;
+import org.kelvinykk511.bybitsdk.util.SignUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.kelvinykk511.bybitsdk.constants.Constants;
-import com.kelvinykk511.bybitsdk.constants.UrlConstants;
-import com.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
-import com.kelvinykk511.bybitsdk.dto.resp.CommonResp;
-import com.kelvinykk511.bybitsdk.dto.resp.GetRealtimeOrderResp;
-import com.kelvinykk511.bybitsdk.util.JsonUtil;
-import com.kelvinykk511.bybitsdk.util.QueryStringUtil;
-import com.kelvinykk511.bybitsdk.util.SignUtil;
+import org.kelvinykk511.bybitsdk.constants.Constants;
+import org.kelvinykk511.bybitsdk.constants.UrlConstants;
+import org.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
+import org.kelvinykk511.bybitsdk.dto.resp.GetRealtimeOrderResp;
+import org.kelvinykk511.bybitsdk.util.JsonUtil;
+import org.kelvinykk511.bybitsdk.util.QueryStringUtil;
 import lombok.Data;
 import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;

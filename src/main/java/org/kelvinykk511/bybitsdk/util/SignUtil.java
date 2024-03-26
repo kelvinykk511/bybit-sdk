@@ -1,4 +1,4 @@
-package com.kelvinykk511.bybitsdk.util;
+package org.kelvinykk511.bybitsdk.util;
 
 import lombok.SneakyThrows;
 

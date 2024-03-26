@@ -1,4 +1,4 @@
-package com.kelvinykk511.bybitsdk.dto.req;
+package org.kelvinykk511.bybitsdk.dto.req;
 
 import lombok.Builder;
 import lombok.Data;

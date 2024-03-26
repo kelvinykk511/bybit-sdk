@@ -1,4 +1,4 @@
-package com.kelvinykk511.bybitsdk.dto.resp;
+package org.kelvinykk511.bybitsdk.dto.resp;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kelvinykk511.bybitsdk.constants;
+package org.kelvinykk511.bybitsdk.constants;
 
 public class Constants {
 
