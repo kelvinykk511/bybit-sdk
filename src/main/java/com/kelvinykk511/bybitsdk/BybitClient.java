@@ -1,5 +1,6 @@
 package com.kelvinykk511.bybitsdk;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.kelvinykk511.bybitsdk.constants.Constants;
 import com.kelvinykk511.bybitsdk.constants.UrlConstants;
 import com.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
@@ -44,8 +45,7 @@ public class BybitClient {
         // Generate URL
         String url = baseUrl + UrlConstants.REALTIME_ORDER;
         Response response = get(req, url);
-        CommonResp<GetRealtimeOrderResp> result = JsonUtil.toObject(response.body().string(), CommonResp.class);
-        return result;
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetRealtimeOrderResp>>() {});
     }
 
     @NotNull
