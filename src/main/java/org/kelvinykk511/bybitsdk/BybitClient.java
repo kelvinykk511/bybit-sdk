@@ -1,20 +1,21 @@
 package org.kelvinykk511.bybitsdk;
 
-import org.kelvinykk511.bybitsdk.dto.resp.CommonResp;
-import org.kelvinykk511.bybitsdk.util.SignUtil;
 import com.fasterxml.jackson.core.type.TypeReference;
+import lombok.SneakyThrows;
+import okhttp3.*;
+import org.jetbrains.annotations.NotNull;
 import org.kelvinykk511.bybitsdk.constants.Constants;
 import org.kelvinykk511.bybitsdk.constants.UrlConstants;
+import org.kelvinykk511.bybitsdk.dto.req.CreateOrderReq;
 import org.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
+import org.kelvinykk511.bybitsdk.dto.req.GetWalletBalanceReq;
+import org.kelvinykk511.bybitsdk.dto.resp.CommonResp;
+import org.kelvinykk511.bybitsdk.dto.resp.CreateOrderResp;
 import org.kelvinykk511.bybitsdk.dto.resp.GetRealtimeOrderResp;
+import org.kelvinykk511.bybitsdk.dto.resp.GetWalletBalanceResp;
 import org.kelvinykk511.bybitsdk.util.JsonUtil;
 import org.kelvinykk511.bybitsdk.util.QueryStringUtil;
-import lombok.Data;
-import lombok.SneakyThrows;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
+import org.kelvinykk511.bybitsdk.util.SignUtil;
 
 /*
  * Bybit Client
@@ -25,7 +26,6 @@ import org.jetbrains.annotations.NotNull;
  * apiSecret: String
  * isMainnet: Boolean
  */
-@Data
 public class BybitClient {
 
     public BybitClient(String apiKey, String apiSecret, Boolean isMainnet) {
@@ -38,7 +38,7 @@ public class BybitClient {
     private final String apiSecret;
     private final String baseUrl;
 
-    private OkHttpClient httpClient = new OkHttpClient();
+    private final OkHttpClient httpClient = new OkHttpClient();
 
     @SneakyThrows
     public CommonResp<GetRealtimeOrderResp> getRealtimeOrder(GetRealtimeOrderReq req) {
@@ -48,9 +48,61 @@ public class BybitClient {
         return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetRealtimeOrderResp>>() {});
     }
 
+    @SneakyThrows
+    public CommonResp<CreateOrderResp> createOrder(CreateOrderReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.CREATE_ORDER;
+        Response response = post(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<CreateOrderResp>>() {});
+    }
+
+    @SneakyThrows
+    public CommonResp<GetWalletBalanceResp> getWalletBalance(GetWalletBalanceReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.WALLET_BALANCE;
+        Response response = get(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetWalletBalanceResp>>() {});
+    }
+
+    /**
+     * Generic Method to Send POST request
+     * @param req
+     * @param url
+     * @return
+     */
     @NotNull
     @SneakyThrows
-    private Response get(GetRealtimeOrderReq req, String url) {
+    private <T> Response post(T req, String url) {
+
+        // GET CURRENT TIME
+        Long current = System.currentTimeMillis();
+        // GENERATE JSON BODY
+        String jsonBody = JsonUtil.toJson(req);
+        // SIGN
+        String sign = SignUtil.generateSign(current, jsonBody, apiKey, apiSecret, Constants.RECV_WINDOW);
+        RequestBody body = RequestBody.create(jsonBody, MediaType.parse("application/json"));
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .addHeader("X-BAPI-TIMESTAMP", current.toString())
+                .addHeader("X-BAPI-RECV-WINDOW", Constants.RECV_WINDOW)
+                .addHeader("X-BAPI-SIGN", sign)
+                .addHeader("X-BAPI-API-KEY", apiKey)
+                .build();
+        return httpClient.newCall(request).execute();
+    }
+
+
+    /**
+     * Generic Method to Send GET request
+     * @param req
+     * @param url
+     * @return
+     * @param <T>
+     */
+    @NotNull
+    @SneakyThrows
+    private <T> Response get(T req, String url) {
         // SIGN
         Long current = System.currentTimeMillis();
         // Generate query string
