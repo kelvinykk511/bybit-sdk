@@ -6,13 +6,8 @@ import okhttp3.*;
 import org.jetbrains.annotations.NotNull;
 import org.kelvinykk511.bybitsdk.constants.Constants;
 import org.kelvinykk511.bybitsdk.constants.UrlConstants;
-import org.kelvinykk511.bybitsdk.dto.req.CreateOrderReq;
-import org.kelvinykk511.bybitsdk.dto.req.GetRealtimeOrderReq;
-import org.kelvinykk511.bybitsdk.dto.req.GetWalletBalanceReq;
-import org.kelvinykk511.bybitsdk.dto.resp.CommonResp;
-import org.kelvinykk511.bybitsdk.dto.resp.CreateOrderResp;
-import org.kelvinykk511.bybitsdk.dto.resp.GetRealtimeOrderResp;
-import org.kelvinykk511.bybitsdk.dto.resp.GetWalletBalanceResp;
+import org.kelvinykk511.bybitsdk.dto.req.*;
+import org.kelvinykk511.bybitsdk.dto.resp.*;
 import org.kelvinykk511.bybitsdk.util.JsonUtil;
 import org.kelvinykk511.bybitsdk.util.QueryStringUtil;
 import org.kelvinykk511.bybitsdk.util.SignUtil;
@@ -62,6 +57,38 @@ public class BybitClient {
         String url = baseUrl + UrlConstants.WALLET_BALANCE;
         Response response = get(req, url);
         return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetWalletBalanceResp>>() {});
+    }
+
+    @SneakyThrows
+    public CommonResp<GetMarketKlineResp> getMarketKline(GetMarketKlineReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.MARKET_KLINE;
+        Response response = get(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetMarketKlineResp>>() {});
+    }
+
+    @SneakyThrows
+    public CommonResp<Object> setSpotMarginLeverage(SetSpotMarginLeverageReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.SET_SPOT_MARGIN_LEVERAGE;
+        Response response = post(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<Object>>() {});
+    }
+
+    @SneakyThrows
+    public CommonResp<GetSpotBorrowCheckResp> getSpotBorrowCheck(GetSpotBorrowCheckReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.GET_SPOT_BORROW_CHECK;
+        Response response = get(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetSpotBorrowCheckResp>>() {});
+    }
+
+    @SneakyThrows
+    public CommonResp<GetMarketOrderBookResp> getMarketOrderBook(GetMarketOrderBookReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.GET_MARKET_ORDER_BOOK;
+        Response response = get(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetMarketOrderBookResp>>() {});
     }
 
     /**
