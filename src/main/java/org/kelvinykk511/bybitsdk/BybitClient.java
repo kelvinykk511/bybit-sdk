@@ -91,6 +91,14 @@ public class BybitClient {
         return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<GetMarketOrderBookResp>>() {});
     }
 
+    @SneakyThrows
+    public CommonResp<AmendOrderResp> amendOrder(AmendOrderReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.AMEND_ORDER;
+        Response response = post(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<AmendOrderResp>>() {});
+    }
+
     /**
      * Generic Method to Send POST request
      * @param req
@@ -116,7 +124,11 @@ public class BybitClient {
                 .addHeader("X-BAPI-SIGN", sign)
                 .addHeader("X-BAPI-API-KEY", apiKey)
                 .build();
-        return httpClient.newCall(request).execute();
+        Response response = httpClient.newCall(request).execute();
+        if (!response.isSuccessful()) {
+            throw new RuntimeException("Request failed: " + response.body().string() + "code: " + response.code());
+        }
+        return response;
     }
 
 

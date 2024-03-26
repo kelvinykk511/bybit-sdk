@@ -11,4 +11,5 @@ public class UrlConstants {
     public static final String SET_SPOT_MARGIN_LEVERAGE = "/v5/spot-margin-trade/set-leverage";
     public static final String GET_SPOT_BORROW_CHECK = "/v5/order/spot-borrow-check";
     public static final String GET_MARKET_ORDER_BOOK = "/v5/market/orderbook";
+    public static final String AMEND_ORDER = "/v5/order/amend";
 }
