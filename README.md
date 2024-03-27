@@ -20,10 +20,10 @@ BybitClient bybitClient = new BybitClient(YOUR_API_KEY, YOUR_SECRET_KEY, IS_MAIN
 // construct the request dto
 GetMarketKlineReq getMarketKlineReq = GetMarketKlineReq.builder()
     .category(CategoryEnum.LINEAR.getValue())
-    .symbol(symbolEnum.getValue())
+    .symbol("BTCUSDT")
     .interval(IntervalEnum.FIFTEEN_MINUTES.getValue())
-    .start(start.intValue())
-    .end(end.intValue())
+    .start(0L)
+    .end(System.currentTimeMillis())
     .limit(150)
     .build();
 
