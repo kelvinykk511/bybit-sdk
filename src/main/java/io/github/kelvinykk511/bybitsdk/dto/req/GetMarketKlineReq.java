@@ -13,8 +13,8 @@ public class GetMarketKlineReq {
     private String symbol;
     @NotNull
     private String interval;
-    private Integer start;
-    private Integer end;
+    private Long start;
+    private Long end;
     private Integer limit;
 
 }
