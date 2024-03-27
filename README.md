@@ -1,3 +1,5 @@
+[![Latest release](https://img.shields.io/github/release/kelvinykk511/bybit-sdk.svg)](https://github.com/kelvinykk511/bybit-sdk/releases/latest)
+
 This is a customized Bybit SDK that calling Bybit V5 API using okhttp3.
 
 <h1>Installation Guide</h1>
@@ -7,7 +9,7 @@ To add dependency using maven, use the following:
 <dependency>
     <groupId>io.github.kelvinykk511</groupId>
     <artifactId>bybit-sdk</artifactId>
-    <version>1.0</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
