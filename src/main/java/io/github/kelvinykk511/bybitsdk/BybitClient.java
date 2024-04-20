@@ -52,6 +52,14 @@ public class BybitClient {
     }
 
     @SneakyThrows
+    public CommonResp<CreateOrderBatchResp> createOrderBatch(CreateOrderBatchReq req) {
+        // Generate URL
+        String url = baseUrl + UrlConstants.CREATE_ORDER_BATCH;
+        Response response = post(req, url);
+        return JsonUtil.toObject(response.body().string(), new TypeReference<CommonResp<CreateOrderBatchResp>>() {});
+    }
+
+    @SneakyThrows
     public CommonResp<GetWalletBalanceResp> getWalletBalance(GetWalletBalanceReq req) {
         // Generate URL
         String url = baseUrl + UrlConstants.WALLET_BALANCE;
